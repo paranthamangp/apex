@@ -1,0 +1,31 @@
+/* VARIABLE DECLARATION IN APEX */
+
+String myName='Rahul';
+Integer myInteger=5;
+Decimal myDecimal=5.62;
+Boolean myBoolean=True;
+
+System.debug('Value inside myInteger' +myInteger); 
+
+Final Decimal pi=3.14159265;
+// pi = 5;
+// Invalid declaration and final will not be replaced
+
+//more string data types
+String myStr = 'abcdef';
+Integer result = myStr.length();
+System.debug('Character count' + result);
+
+String s = 'hello maximillian';
+String s2 = s.capitalize();
+
+//Sobject
+Account acc = new Account();
+acc=[SELECT ID,Name FROM account limit 1000];
+System.debug(acc);
+
+//Example
+Object obj = 10;
+//Cast the object to an integer.
+Integer i = (Integer)obj;
+System.assertEquals(10, i);

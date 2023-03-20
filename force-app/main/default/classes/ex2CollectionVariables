@@ -1,0 +1,92 @@
+/* COLLECTION VARIABLES IN APEX */
+
+/* 1. List - Collection variable */
+
+// Create a List
+List<Account> ls1 = new List<Account>(); //Empty
+
+//different ways to initialise a list
+
+List<Integer> ls2 = new List<Integer>{1, 2, 3};
+List<Integer> ls3 = new List<Integer>(5);
+List<Contact> conList = new List<Contact> {
+new Contact (FirstName='Joe', LastName='Doe'),
+new Contact (FirstName='Vic', LastName='Doe') };
+
+Contact josh = new Contact (FirstName='Joe', LastName='Doe');
+Contact vic = new Contact (FirstName='Vic', LastName= 'Doe');
+List<Contact> contacts = new List<Contact> { josh, vic};
+
+//list examples
+
+List<String> strList = new List<String>();
+//elements added to the set
+strList.add('element 0');
+strList.add('element 1');
+strList.add('element 2');
+//duplicate element added to the list
+strList.add('element 1');
+//this will output size of list
+Integer listSize = strList.size();
+//the result will be 4
+system.debug('@@size : '+listSize);
+//List with SOQL
+List<Account> accs = [SELECT Id, Name FROM Account WHERE Name ='ACC'];
+
+/* 2. Set - Collection variable */
+
+Set<Integer> s1 = new Set<Integer>();
+Set<Integer> s2 = new Set<Integer>{1, 2, 3};
+Set<Contact> conSet = new Set<Contact> {
+new Contact (FirstName='Joe', LastName='Doe'),
+new Contact (FirstName='Vic', LastName='Doe') };
+
+Contact josh = new Contact (FirstName='Joe', LastName='Doe');
+Contact vic = new Contact (FirstName='Vic', LastName= 'Doe');
+Set<Contact> contacts = new Set<Contact> { josh, vic};
+
+// set examples
+
+//empty set initialized
+Set<String> strSet = new Set<String>();
+//elements added to the set
+strSet.add('Paris');
+strSet.add('London');
+strSet.add('New York');
+//duplicate element added to the set
+strSet.add('Paris');
+//this will output size of set
+Integer setSize = strSet.size();
+//the result will be 3
+system.debug('@@size : ' + setSize);
+system.debug(strSet.contains('New York'));
+//remove value from list
+strSet.remove('New York');
+system.debug(strSet.contains('New York'));
+//retain all method
+Set<integer> mySet = new Set<integer>{1, 2, 3,4,5,6};
+List<integer> myList = new List<integer>{1, 2,3,4};
+Boolean result = mySet.retainAll(myList);
+System.assertEquals(true, result);
+
+
+/* 3. Map - Collection variable */
+
+//Create a Map:
+Map<Integer,String> myMap = new Map<Integer,String>();
+Map<Integer,String> myMap2 = new Map<Integer,String> {1 => 'one', 2 =>'two'};
+Map<Integer,String> myMap = new Map<Integer,String>();
+myMap.put(1, 'one');
+myMap.put(2, 'two');
+myMap.put(2, 'three');
+
+//Initialization of Map
+Map<String, String> stringMap = new Map<String, String>();
+//setting key value pairs in the Map
+stringMap.put('Spielberg', 'Jurassic Park');
+stringMap.put('Nolan', 'Dark Knight');
+stringMap.put('Cameron', 'Avatar');
+//accessing the value for key
+system.debug(stringMap.get('Nolan'));
+//this will check if the key exists in the map or not, will show false
+system.debug(stringMap.containsKey('John'));
