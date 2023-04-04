@@ -1,0 +1,16 @@
+/* RUN IN ANONYMOUS WINDOW */
+
+// Querying the account record
+Account accn =[Select Id, Name from Account where Id = '0016F00003juxLoQAI' LIMIT 1];
+// Deleting the account record using DML
+Delete accn;
+// To verify whether account record is deleted or not
+Account accn =[Select Id, Name from Account where Name = 'Updated Name' LIMIT 1];
+System.debug(accn);
+if(accn.size() ==0){
+// Display the message in the debug logs
+system.debug('account does not exist');
+}else{
+// Display the message in the debug logs
+system.debug('account existed');
+}

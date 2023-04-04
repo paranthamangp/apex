@@ -1,0 +1,90 @@
+/* CONTROL STATEMENTS IN APEX */
+
+/* IF STATEMENT */
+Integer grade = 50;
+if (grade >= 60) {
+    System.debug('You have passed');
+}
+
+/* IF ELSE STATEMENT */
+Integer grade = 75;
+if (grade >= 60) {
+    System.debug('You Pass');
+}
+else {
+    System.debug('You Fail');
+}
+
+/* IF ELSE IF STATEMENT */
+
+if (grade >= 90) {
+    System.debug('Your grade is A');
+}
+else if (grade >= 80) {
+    System.debug('Your grade is B');
+}
+else if (grade >= 70) {
+    System.debug('Your grade is C');
+}
+else if (grade >= 60) {
+    System.debug('Your grade is D');
+}
+else {
+    System.debug('You Fail!'); 
+}
+
+/* WHILE LOOP */
+
+Integer count = 1;
+while (count < 11) {
+    System.debug('Count is now: ' +count);
+    count++; // count = count +1 ;
+}
+
+/* DO WHILE LOOP */
+
+Integer count = 1;
+do {
+    System.debug('Count is now: ' +count);
+    count++;
+} while (count < 11);
+
+/* SWITCH STATEMENT */
+
+integer i = 11;
+switch on i {
+    when 2, 3, 4 {
+        System.debug('when block 2 and 3 and 4');
+    }
+    when 5, 6 {
+        System.debug('when block 5 and 6');
+    }
+    when 7 {
+        System.debug('when block 7');
+    }
+    when else {
+        System.debug('default');
+    }
+    }
+
+/* SWITCH STATEMENT - SOBJECT */
+//Sobject
+Account acc = new Account();
+Contact con = new Contact();
+
+switch on con {
+    when Account a {
+        System.debug('account ' + a);
+    }
+    when Contact c {
+        System.debug('contact ' + c);
+    }
+    when null {
+        System.debug('null');
+    }
+    when else {
+        System.debug('default');
+    }
+
+
+    

@@ -1,0 +1,52 @@
+/* RUN IN ANONYMOUS WINDOW */
+
+/*Example 1 -Database parameter set to "false" which will allow partial processing */
+//Database.insert(acctList, false);
+
+// Create the list of sObject to insert
+List<Account> acctList = new List<Account>();
+acctList.add(new Account(Name='Acme1'));
+acctList.add(new Account(Website ='www.salesforce.com'));
+// Database Method Invocation.  As the additional parameter set to false it will allow partial processing
+Database.SaveResult[] srList = Database.insert(acctList, false);
+// Above invocation results in one success and one failure. The mandatory field has not been mapped for the second account so it will fail.
+// Iterate through the returned result
+for (Database.SaveResult sr : srList) {
+    if (sr.isSuccess()) {
+            System.debug('Successfully inserted account. Account ID: ' + sr.getId());
+        }
+    else {
+        // Operation failed for second account, so get all errors                
+        for(Database.Error err : sr.getErrors()) {
+            System.debug('The following error has occurred.');                    
+            System.debug(err.getStatusCode() + ': ' + err.getMessage());
+            System.debug('Account fields that affected this error: ' + err.getFields());
+        }
+    }
+}
+
+
+
+/*Example 2 -Database parameter set to "true" which will not allow partial processing */
+
+
+// Create the list of sObjects to insert
+List<Account> acctList = new List<Account>();
+acctList.add(new Account(Name='Acme1'));
+acctList.add(new Account(Website ='www.salesforce.com'));
+// Database Method Invocation. As the additional parameter set to true it will not allow partial processing
+Database.SaveResult[] srList = Database.insert(acctList,true);
+// The above invocation results in  failure as name is not mapped for second account
+// Iterate through each returned result
+for (Database.SaveResult sr : srList) {
+    if (sr.isSuccess()) {
+    }
+    else {
+        // Operation failed, so get all errors                
+        for(Database.Error err : sr.getErrors()) {
+            System.debug('The following error has occurred.');                    
+            System.debug(err.getStatusCode() + ': ' + err.getMessage());
+            System.debug('Account fields that affected this error: ' + err.getFields());
+        }
+    }
+}

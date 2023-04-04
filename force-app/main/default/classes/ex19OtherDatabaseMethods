@@ -1,0 +1,61 @@
+/* RUN IN ANONYMOUS WINDOW */
+
+/* Database Insert */
+List<Account> accountsToInsert = new List<Account>();
+
+for(Integer i=0; i<3; i++){
+    Account acc = new Account(Name = 'Simplilearn', BillingCity = 'New York');
+    accountsToInsert.add(acc);
+}
+Database.insert(accountsToInsert);
+
+
+// how many account records are present name with the name 'Simplilearn'
+List<account> accList =[Select Name,BillingCity FROM Account WHERE Name = 'Simplilearn'];
+System.debug('List size' +accList.size());
+
+
+
+
+/* Database Update */
+Account accountToUpdate;
+accountToUpdate = [Select BillingCity FROM Account WHERE Name = 'Simplilearn' LIMIT 1];
+System.Debug('Account value:' +accountToUpdate);
+
+accountToUpdate.BillingCity = 'San Francisco';
+Database.update(accountToUpdate);
+Account afterUpdate = [Select BillingCity FROM Account WHERE Id =: accountToUpdate.Id];
+System.assertEquals(afterUpdate.BillingCity, 'San Francisco');
+
+/* Database upsert */
+
+List<Account> accountsList = [SELECT Id, Name, BillingCity FROM Account WHERE BillingCity = 'San Francisco'];
+for (Account acc : accountsList) {
+    acc.BillingCity = 'Las Vegas';
+}
+Account newAccount = new Account(Name = 'SimpliLearn', BillingCity = 'Palo Alto');
+accountsList.add(newAccount);
+Database.upsert(accountsList);
+
+/* Database Delete */
+List<Account> accList = [SELECT name FROM account where Name='Simplilearn' limit 10];
+System.debug('No of records to be deleted : ' +accList.size());
+Database.delete(accList, false);
+//You cannot delete an account which have cases related to it.
+
+/*Database Undelete*/
+List<Account> accList = [SELECT name FROM account WHERE isDeleted=true ALL ROWS];
+System.debug('No of records to be undeleted : ' +accList.size());
+Database.undelete(accList, false);
+
+// Note: You can use ALL ROWS to query records in your organization's Recycle Bin. 
+// You cannot use the ALL ROWS keywords with the FOR UPDATE keywords.
+
+/* Database merge */
+List<Account> accList = [SELECT name FROM account LIMIT 3];
+Account masterRecord = accList[0];
+
+List<Account> dupList = new List<Account>();
+dupList.add(accList[1]);
+dupList.add(accList[2]);
+Database.merge(masterRecord, dupList);

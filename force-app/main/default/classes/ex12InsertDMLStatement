@@ -1,0 +1,27 @@
+/* RUN IN ANONYMOUS WINDOW */
+
+// Create the account sObject 
+Account accObject = new Account();
+accObject.Name = 'Database First Account';
+accObject.Website ='www.salesforce.com';
+// Insert the account by using DML
+Insert accObject ;
+System.debug('Account Id :' + accObject.Id);
+// Create the contact sObject List
+List<Contact> contactList = new List<Contact>();
+    // Create the contact sObject 
+Contact con1 = new Contact();
+con1.FirstName ='Database First';
+con1.LastName ='contact';
+con1.AccountId ='0016F000047k0qQQAQ';
+    // Adding the sObject to the list
+contactList.add(con1);
+    // Create the contact sObject 
+Contact con2 = new Contact();
+    //con2.Id ='1234';
+con2.LastName ='Database second';
+con2.AccountId ='0016F000047k0qQQAQ';
+    // Adding the sObject to the list
+contactList.add(con2);
+    // Insert the contact list by using DML
+Insert contactList;
