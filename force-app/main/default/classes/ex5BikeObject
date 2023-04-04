@@ -1,0 +1,16 @@
+/* RUN IN ANONYMOUS WINDOW */
+
+/* Initialise an object for bike class that was created before */
+
+ex4BikeClass myBike = new ex4BikeClass();
+myBike.modelNumber = 'FZ-V3';
+myBike.numberInStock = 100;
+myBike.updateStock(20);
+
+System.debug('myBike.numberInStock=' + myBike.numberInStock);
+
+ex4BikeClass myOtherBike = new ex4BikeClass();
+myOtherBike.modelNumber = 'Dio';
+myOtherBike.numberInStock = 50;
+
+System.debug('myOtherBike.numberInStock=' + myOtherBike.numberInStock);

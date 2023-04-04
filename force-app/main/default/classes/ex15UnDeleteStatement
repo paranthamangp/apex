@@ -1,0 +1,10 @@
+/* RUN IN ANONYMOUS WINDOW */
+
+// Querying the account record
+Account accn = [select Id, Name from Account where Id ='0016F00003juxLoQAI' ALL ROWS];
+// Undeleting the account record using DML
+Undelete accn ;
+// To verify whether account record is restored or not
+Account accn = [select Id, Name from Account where Name ='Updated Name'];
+// Display the account record in the debug logs
+system.debug('restored account record:::'+accn);

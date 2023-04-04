@@ -1,0 +1,10 @@
+/* RUN IN ANONYMOUS WINDOW */
+
+Account accountRecord  =[Select Id, Name from Account where Name = 'Trilia 227' LIMIT 1];
+accountRecord.Name = 'Updated Name';
+// updating the account record using DML
+update accountRecord; 
+// To verify the account name whether it is updated or not
+Account accountRecord =[Select Id, Name from Account where Name = 'Updated Name' LIMIT 1];
+// Display the account record in the debug logs
+system.debug('account afterUpdate::::'+accountRecord);

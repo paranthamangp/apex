@@ -1,0 +1,52 @@
+/* RUN IN ANONYMOUS WINDOW */
+
+// Querying the account records
+Account[] acctsList = [SELECT Id, Name, BillingCity,Website FROM Account WHERE Name='Updated Name'];
+System.Debug(acctsList); //2 records
+//Iterating over the account records
+for (Account a : acctsList) {
+    a.Name ='Salesforce account';
+}
+// Creating a new record
+Account newAcct = new Account(Name ='SF Account');
+// Adding the new record to the list
+acctsList.add(newAcct);
+// Upserting the account List using DML
+Upsert acctsList;
+
+
+
+
+
+try {
+            // Create the account sObject 
+        Account accObject = new Account();
+        accObject.Name = 'Demo Account';
+        accObject.Website ='www.salesforce.com';
+        // Insert the account by using DML
+        Insert accObject ; 
+        System.debug('Account Id :' + accObject.Id);
+
+        // Create the contact sObject List
+        List<Contact> contactList = new List<Contact>();
+        // Create the contact sObject 
+        Contact con1 = new Contact();
+        con1.FirstName ='first';
+        con1.LastName ='contact';
+        con1.AccountId =accObject.Id;
+        // Adding the sObject to the list
+        contactList.add(con1);
+        // Create the contact sObject 
+        Contact con2 = new Contact();
+        con2.FirstName ='second';
+        con2.LastName ='contact';
+        con2.AccountId =accObject.Id;
+        // Adding the sObject to the list
+        contactList.add(con2);
+        // Insert the contact list by using DML
+        Insert contactList;                                       
+
+} catch (Exception e) {
+    // Process exception
+    System.debug('An unexpected error has occurred: ' + e.getMessage()); 
+}
