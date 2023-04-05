@@ -6,14 +6,15 @@
 // Create the list of sObject to insert
 List<Account> acctList = new List<Account>();
 acctList.add(new Account(Name='Acme1'));
-acctList.add(new Account(Website ='www.salesforce.com'));
+acctList.add(new Account(Name='Acme2'));
+//acctList.add(new Account(Website ='www.salesforce.com'));
 // Database Method Invocation.  As the additional parameter set to false it will allow partial processing
 Database.SaveResult[] srList = Database.insert(acctList, false);
 // Above invocation results in one success and one failure. The mandatory field has not been mapped for the second account so it will fail.
 // Iterate through the returned result
 for (Database.SaveResult sr : srList) {
     if (sr.isSuccess()) {
-            System.debug('Successfully inserted account. Account ID: ' + sr.getId());
+            //System.debug('Successfully inserted account. Account ID: ' + sr.getId());
         }
     else {
         // Operation failed for second account, so get all errors                
